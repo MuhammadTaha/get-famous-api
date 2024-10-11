@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  laravelapp:
+    container_name: laravelapp
+    build: ./task/
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./task/.env
+    depends_on:
+      - postgresdb
+  
+  postgresdb:
+    container_name: postgresdb
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata: 
